@@ -1,14 +1,15 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
+//Route files
+const projects = require('./routes/projects');
+
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.status(200);
-  res.send("Server initialized");
-});
+//Mount routers
+app.use('/api/v1/projects', projects);
 
 const PORT = process.env.PORT || 5000;
 
