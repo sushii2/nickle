@@ -86,7 +86,7 @@ const ProjectSchema = new mongoose.Schema({
         ]
     },
     body: {
-        type: [String],
+        type: String,
         required: true,
         enum: [
             'Hatchback',
@@ -101,7 +101,7 @@ const ProjectSchema = new mongoose.Schema({
         ]
     },
     transmission: {
-        type: [String],
+        type: String,
         required: true,
         enum: [
             'Automatic',
@@ -109,7 +109,7 @@ const ProjectSchema = new mongoose.Schema({
         ]
     },
     engine: {
-        type: [String],
+        type: String,
         required: true,
         enum: [
             'H4',
@@ -141,7 +141,7 @@ const ProjectSchema = new mongoose.Schema({
         ]
     },
     fuel: {
-        type: [String],
+        type: String,
         required: true,
         enum: [
             'Petrol',
@@ -161,11 +161,9 @@ const ProjectSchema = new mongoose.Schema({
         type: {
             type: String,
             enum: ['Point'],
-            required: true
         },
         coordinates: {
             type: [Number],
-            required: true,
             index: '2dsphere'
         },
         formattedAddress: String,
@@ -180,29 +178,8 @@ const ProjectSchema = new mongoose.Schema({
         min: [1, 'Rating must at least be 1.'],
         max: [10, 'Rating can not be more than 10'],
     },
-    photo1: {
-        type: String,
-        default: 'no-photo.jpg'
-    },
-    photo2: {
-        type: String,
-        default: 'no-photo.jpg'
-    },
-    photo3: {
-        type: String,
-        default: 'no-photo.jpg'
-    },
-    photo4: {
-        type: String,
-        default: 'no-photo.jpg'
-    },
-    photo5: {
-        type: String,
-        default: 'no-photo.jpg'
-    },
-    photo6: {
-        type: String,
-        default: 'no-photo.jpg'
+    photos: {
+        type: [{ url: String }],
     },
     createdAt: {
         type: Date,
