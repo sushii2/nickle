@@ -1,3 +1,4 @@
+const ErrorResponse = require("../utils/errorResponse");
 const Project = require("../models/Project");
 
 //@desc    Get all project cars
@@ -25,7 +26,12 @@ exports.getProject = async (req, res, next) => {
     const project = await Project.findById(req.params.id);
 
     if (!project) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Project not found with an id of: ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({
@@ -33,7 +39,12 @@ exports.getProject = async (req, res, next) => {
       data: project
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(
+      new ErrorResponse(
+        `Project not found with an id of: ${req.params.id}`,
+        404
+      )
+    );
   }
 };
 
@@ -83,7 +94,7 @@ exports.deleteProject = async (req, res, next) => {
   try {
     const project = await Project.findByIdAndDelete(req.params.id);
 
-    if(!project) {
+    if (!project) {
       return res.status(400).json({ success: false });
     }
 
