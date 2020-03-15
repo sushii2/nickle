@@ -14,7 +14,7 @@ exports.getProjects = async (req, res, next) => {
       data: projects
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -39,12 +39,7 @@ exports.getProject = async (req, res, next) => {
       data: project
     });
   } catch (err) {
-    next(
-      new ErrorResponse(
-        `Project not found with an id of: ${req.params.id}`,
-        404
-      )
-    );
+    next(err);
   }
 };
 
@@ -60,7 +55,7 @@ exports.createProject = async (req, res, next) => {
       data: project
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -75,7 +70,12 @@ exports.updateProject = async (req, res, next) => {
     });
 
     if (!project) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Project not found with an id of: ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({
@@ -83,7 +83,7 @@ exports.updateProject = async (req, res, next) => {
       data: project
     });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -95,11 +95,16 @@ exports.deleteProject = async (req, res, next) => {
     const project = await Project.findByIdAndDelete(req.params.id);
 
     if (!project) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Project not found with an id of: ${req.params.id}`,
+          404
+        )
+      );
     }
 
     res.status(200).json({ success: true, data: {} });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
