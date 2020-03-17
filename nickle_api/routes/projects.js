@@ -4,9 +4,12 @@ const {
   getProject,
   createProject,
   updateProject,
-  deleteProject
+  deleteProject,
+  getProjectsinRadius
 } = require("../controllers/projects");
 const router = express.Router();
+
+router.route("/radius/:zipcode/:distance").get(getProjectsinRadius);
 
 router
   .route("/")
