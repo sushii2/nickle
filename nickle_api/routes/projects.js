@@ -7,7 +7,14 @@ const {
   deleteProject,
   getProjectsinRadius
 } = require("../controllers/projects");
+
+// Include other resource routers
+const postRouter = require('./posts');
+
 const router = express.Router();
+
+// Re-route into other resource routers
+router.use('/:projectId/posts', postRouter);
 
 router.route("/radius/:zipcode/:distance").get(getProjectsinRadius);
 

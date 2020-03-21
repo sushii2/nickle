@@ -12,6 +12,7 @@ connectDB();
 
 //Route files
 const projects = require('./routes/projects');
+const posts = require('./routes/posts');
 
 const app = express();
 
@@ -25,6 +26,7 @@ if(process.env.NODE_ENV === 'development') {
 
 //Mount routers
 app.use('/api/v1/projects', projects);
+app.use('api/v1/posts', posts);
 
 // Custom express error handler
 app.use(errorHandler);

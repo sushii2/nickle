@@ -186,6 +186,9 @@ const ProjectSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 // Create project slug from the name.
@@ -211,6 +214,20 @@ ProjectSchema.pre('save', async function(next) {
    // Do not save address in DB
    this.address = undefined;
     next();
+});
+
+// Cascade delete posts when a project is deleted
+ProjectSchema.pre('remove', async function (next) {
+    await this.model('Post').deleteMany({ project: this._id });
+    next();
+});
+
+// Reverse populate with virtuals
+ProjectSchema.virtual('posts', {
+    ref: 'Post',
+    localField: '_id',
+    foreignField: 'project',
+    justOne: false
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

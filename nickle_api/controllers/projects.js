@@ -24,7 +24,7 @@ exports.getProjects = asyncHandler(async (req, res, next) => {
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
     // Finding resource
-    query = Project.find(JSON.parse(queryStr));
+    query = Project.find(JSON.parse(queryStr)).populate('posts');
 
     // Select fields
     if(req.query.select) {
@@ -138,7 +138,7 @@ exports.updateProject = asyncHandler(async (req, res, next) => {
 //@route   DELETE /api/v1/projects/:id
 //@access  Private
 exports.deleteProject = asyncHandler(async (req, res, next) => {
-    const project = await Project.findByIdAndDelete(req.params.id);
+    const project = await Project.findById(req.params.id);
 
     if (!project) {
       return next(
@@ -148,6 +148,8 @@ exports.deleteProject = asyncHandler(async (req, res, next) => {
         )
       );
     }
+
+    project.remove();
 
     res.status(200).json({ success: true, data: {} });
 });
