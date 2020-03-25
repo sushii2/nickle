@@ -26,7 +26,7 @@ if(process.env.NODE_ENV === 'development') {
 
 //Mount routers
 app.use('/api/v1/projects', projects);
-app.use('api/v1/posts', posts);
+app.use('/api/v1/posts', posts);
 
 // Custom express error handler
 app.use(errorHandler);

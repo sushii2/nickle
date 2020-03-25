@@ -8,6 +8,9 @@ const {
   getProjectsinRadius
 } = require("../controllers/projects");
 
+const Project = require('../models/Project');
+const advancedResults = require('../middleware/advancedResults');
+
 // Include other resource routers
 const postRouter = require('./posts');
 
@@ -20,7 +23,7 @@ router.route("/radius/:zipcode/:distance").get(getProjectsinRadius);
 
 router
   .route("/")
-  .get(getProjects)
+  .get(advancedResults(Project, 'posts'), getProjects)
   .post(createProject);
 
 router
