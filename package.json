@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "dev": "nodemon server",
-    "start:test": "NODE_ENV=development node server"
+    "server": "nodemon server",
+    "start:test": "NODE_ENV=development node server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Saksham Saraswat",
   "license": "MIT",
@@ -30,6 +32,7 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
+    "concurrently": "^5.1.0",
     "nodemon": "^2.0.2"
   }
 }
