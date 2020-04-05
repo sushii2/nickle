@@ -15,6 +15,7 @@ connectDB();
 const projects = require('./routes/projects');
 const posts = require('./routes/posts');
 const auth = require('./routes/auth');
+const reviews = require('./routes/reviews');
 
 const app = express();
 
@@ -33,6 +34,7 @@ if(process.env.NODE_ENV === 'development') {
 app.use('/api/v1/projects', projects);
 app.use('/api/v1/posts', posts);
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/reviews', reviews);
 
 // Custom express error handler
 app.use(errorHandler);

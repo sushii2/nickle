@@ -34,4 +34,40 @@ const ReviewSchema = new mongoose.Schema({
   }
 });
 
+// Prevent user from submitting more than one review per project
+ReviewSchema.index({ project: 1, user: 1}, { unique: true });
+
+// Static method to get avg rating and save
+ReviewSchema.statics.getAverageRating = async function(projectId) {
+  const obj = await this.aggregate([
+    {
+      $match: { project: projectId }
+    },
+    {
+      $group: {
+        _id: '$project',
+        averageRating: { $avg: '$rating' }
+      }
+    }
+  ]);
+
+  try {
+    await this.model('Project').findByIdAndUpdate(projectId, {
+      averageRating: obj[0].averageRating
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Call getAverageCost after save
+ReviewSchema.post('save', function() {
+  this.constructor.getAverageRating(this.project);
+});
+
+// Call getAverageCost before remove
+ReviewSchema.pre('remove', function() {
+  this.constructor.getAverageRating(this.project);
+});
+
 module.exports = mongoose.model("Review", ReviewSchema);
