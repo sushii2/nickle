@@ -22,7 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
-        cd nickle_api
         npm install
       env:
         CI: true
