@@ -1,5 +1,8 @@
 # Nickle
 ![Nickle API CI](https://github.com/sushii2/nickle/workflows/Nickle%20API%20CI/badge.svg)
+![Issues](https://img.shields.io/github/issues/sushii2/nickle)
+![Forks](https://img.shields.io/github/forks/sushii2/nickle)
+![Stars](https://img.shields.io/github/stars/sushii2/nickle)
 
 ## Overview
 
