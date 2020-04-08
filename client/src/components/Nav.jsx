@@ -20,8 +20,8 @@ const MenuItems = ({ routeTo, children }) => (
 
 const Nav = (props) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const bgColor = { light: "gray.300", dark: "gray.600" };
-  const textColor = { light: "black", dark: "gray.100" };
+  const bgColor = { light: "white", dark: "black" };
+  const textColor = { light: "black", dark: "white" };
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
 
@@ -44,7 +44,7 @@ const Nav = (props) => {
 
       <Box display={{ sm: "block", md: "none" }} onClick={handleToggle}>
         <svg
-          fill="white"
+          fill="grey"
           width="12px"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +75,11 @@ const Nav = (props) => {
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
+        <Button bg="transparent" border="1px" mr={3}>
+          Sign In
+        </Button>
         <Button bg="transparent" border="1px">
-          Create account
+          Register
         </Button>
       </Box>
     </Flex>
