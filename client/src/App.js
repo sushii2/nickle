@@ -8,6 +8,10 @@ import {
 } from "@chakra-ui/core";
 import theme from "./theme";
 
+//Redux
+import { Provider } from "react-redux";
+import store from "./store";
+
 import Nav from "./components/Nav";
 
 import Landing from "./pages/Landing";
@@ -17,22 +21,24 @@ import Register from "./pages/Register";
 
 const App = () => {
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CSSReset />
-        <ColorModeProvider>
-          <Flex direction="column">
-            <Nav />
-            <Route exact path="/" component={Landing} />
-            <Switch>
-              <Route exact path="/about" component={About} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-            </Switch>
-          </Flex>
-        </ColorModeProvider>
-      </ThemeProvider>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <CSSReset />
+          <ColorModeProvider>
+            <Flex direction="column">
+              <Nav />
+              <Route exact path="/" component={Landing} />
+              <Switch>
+                <Route exact path="/about" component={About} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/register" component={Register} />
+              </Switch>
+            </Flex>
+          </ColorModeProvider>
+        </ThemeProvider>
+      </Router>
+    </Provider>
   );
 };
 

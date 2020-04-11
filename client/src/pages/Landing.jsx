@@ -3,6 +3,8 @@ import { Box, Heading, useColorMode, Flex } from "@chakra-ui/core";
 import LazyHero from "react-lazy-hero";
 import TextLoop from "react-text-loop";
 
+import LandingImg from '../assets/landingimage.jpeg';
+
 const Landing = () => {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "black" };
@@ -10,7 +12,7 @@ const Landing = () => {
   return (
     <>
       <LazyHero
-        imageSrc="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2047&q=80"
+        imageSrc={LandingImg}
         minHeight="75vh"
         opacity={0.4}
         parallaxOffset={50}
