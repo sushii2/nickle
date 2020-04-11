@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink as ReachLink } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -11,7 +12,7 @@ import {
 } from "@chakra-ui/core";
 
 const MenuItems = ({ routeTo, children }) => (
-  <Link>
+  <Link as={ReachLink} to={routeTo}>
     <Text mt={{ base: 4, md: 0 }} mr={6} display="block">
       {children}
     </Text>
@@ -60,12 +61,12 @@ const Nav = (props) => {
         alignItems="center"
         flexGrow={1}
       >
-        <MenuItems>Home</MenuItems>
-        <MenuItems>About</MenuItems>
+        <MenuItems routeTo="/">Home</MenuItems>
+        <MenuItems routeTo="/about">About</MenuItems>
         <IconButton
           variant="ghost"
           onClick={toggleColorMode}
-          icon={colorMode === "light" ? "moon" : "sun"}
+          icon={colorMode === "dark" ? "sun" : "moon"}
         >
           Change Color Mode
         </IconButton>
@@ -75,12 +76,16 @@ const Nav = (props) => {
         display={{ sm: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        <Button bg="transparent" border="1px" mr={3}>
-          Sign In
-        </Button>
-        <Button bg="transparent" border="1px">
-          Register
-        </Button>
+        <ReachLink to="/login">
+          <Button bg="transparent" border="1px" mr={3}>
+            Sign In
+          </Button>
+        </ReachLink>
+        <ReachLink to="/register">
+          <Button bg="transparent" border="1px">
+            Register
+          </Button>
+        </ReachLink>
       </Box>
     </Flex>
   );

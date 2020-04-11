@@ -12,9 +12,9 @@ const Landing = () => {
       <LazyHero
         imageSrc="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2047&q=80"
         minHeight="75vh"
-        opacity="0.4"
-        parallaxOffset="75"
-        transitionDuration="600"
+        opacity={0.4}
+        parallaxOffset={50}
+        transitionDuration={600}
       >
         <Box maxW="md" maxHeight="75%">
           <Heading as="h1" size="2xl" color={textColor[colorMode]}>
@@ -23,7 +23,7 @@ const Landing = () => {
               <span>Share</span>
               <span>Review</span>
             </TextLoop>
-            <span> your project car now.</span>
+            <span> a project car now.</span>
           </Heading>
         </Box>
       </LazyHero>
