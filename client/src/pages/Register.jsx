@@ -1,7 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
-import { setAlert } from "../actions/alert";
-import { register } from "../actions/auth";
 import {
   Flex,
   useColorMode,
@@ -21,7 +18,7 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert, register }) => {
+const Register = () => {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "black" };
   const textColor = { light: "black", dark: "white" };
@@ -60,8 +57,6 @@ const Register = ({ setAlert, register }) => {
             actions.setSubmitting(false);
           }, 1000);
           const { name, username, email, password } = values;
-          register({ name, username, email, password });
-          setAlert("Successfully registered", "success");
         }}
       >
         {(props) => (
@@ -169,9 +164,4 @@ const Register = ({ setAlert, register }) => {
   );
 };
 
-Register.popTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-};
-
-export default connect(null, { setAlert, register })(Register);
+export default Register;

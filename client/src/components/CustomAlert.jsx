@@ -1,24 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Alert, AlertIcon } from "@chakra-ui/core";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import AlertContext from "../context/alert/alertContext";
 
-const CustomAlert = ({ alerts }) =>
-  alerts !== null &&
-  alerts.length > 0 &&
-  alerts.map((alert) => (
+const CustomAlert = () => {
+  const alertContext = useContext(AlertContext);
+  const { alerts } = alertContext;
+
+  return (
+    alerts !== null &&
+    alerts.length > 0 &&
+    alerts.map((alert) => (
       <Alert status={alert.alertType} key={alert.id}>
         <AlertIcon />
         {alert.msg}
       </Alert>
-  ));
-
-CustomAlert.propTypes = {
-  alerts: PropTypes.array.isRequired,
+    ))
+  );
 };
-
-const mapStateToProps = (state) => ({
-  alerts: state.alert,
-});
-
-export default connect(mapStateToProps)(CustomAlert);
