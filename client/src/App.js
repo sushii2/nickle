@@ -1,11 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {
-  ThemeProvider,
-  CSSReset,
-  ColorModeProvider,
-  Flex,
-} from "@chakra-ui/core";
+import { ThemeProvider, CSSReset, ColorModeProvider } from "@chakra-ui/core";
 import theme from "./theme";
 
 //Redux
@@ -13,6 +8,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Nav from "./components/Nav";
+import CustomAlert from "./components/CustomAlert";
 
 import Landing from "./pages/Landing";
 import About from "./pages/About";
@@ -26,15 +22,14 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CSSReset />
           <ColorModeProvider>
-            <Flex direction="column">
-              <Nav />
-              <Route exact path="/" component={Landing} />
-              <Switch>
-                <Route exact path="/about" component={About} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
-              </Switch>
-            </Flex>
+            <Nav />
+            <Route exact path="/" component={Landing} />
+            <CustomAlert />
+            <Switch>
+              <Route exact path="/about" component={About} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+            </Switch>
           </ColorModeProvider>
         </ThemeProvider>
       </Router>

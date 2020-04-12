@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../actions/alert";
+import { register } from "../actions/auth";
 import {
   Flex,
   useColorMode,
@@ -15,9 +18,10 @@ import {
 } from "@chakra-ui/core";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Register = () => {
+const Register = ({ setAlert, register }) => {
   const { colorMode } = useColorMode();
   const bgColor = { light: "white", dark: "black" };
   const textColor = { light: "black", dark: "white" };
@@ -48,14 +52,16 @@ const Register = () => {
             .email("Email is invalid")
             .required("Email is required"),
           password: Yup.string()
-            .min(6, "Password must be at least 6 characters")
+            .min(8, "Password must be at least 8 characters")
             .required("Password is required"),
         })}
         onSubmit={(values, actions) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
             actions.setSubmitting(false);
           }, 1000);
+          const { name, username, email, password } = values;
+          register({ name, username, email, password });
+          setAlert("Successfully registered", "success");
         }}
       >
         {(props) => (
@@ -101,7 +107,7 @@ const Register = () => {
                   </FormControl>
                 )}
               </Field>
-              <Divider borderColor="gray.400"/>
+              <Divider borderColor="gray.400" />
               <Field name="email">
                 {({ field, form }) => (
                   <FormControl
@@ -163,4 +169,9 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.popTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, register })(Register);
